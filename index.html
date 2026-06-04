@@ -1050,17 +1050,28 @@ function pushButtonState(floor, active) {
   db.ref(`buttons/${floor}`).set(active);
 }
 
-// 다른 사람이 누른 버튼 반영
+// 다른 사람이 누른 버튼 반영 + 큐에 추가
 db.ref('buttons').on('value', snap => {
   const data = snap.val() || {};
   floors.forEach(fd => {
     const btn = floorBtns[fd.floor];
     if (!btn) return;
     const remoteActive = !!data[fd.floor];
-    const localActive = btn.classList.contains('lit');
-    if (remoteActive && !localActive) {
+    const alreadyInQueue = !!queue.find(q => q.floor === fd.floor);
+    const ti = floorOrder.indexOf(fd.floor);
+
+    if (remoteActive && !alreadyInQueue && ti !== currentFloorIdx) {
+      // 버튼 켜기
       btn.classList.add('lit');
-    } else if (!remoteActive && localActive && !queue.find(q => q.floor === fd.floor)) {
+      // 큐에 추가 (없을 때만)
+      queue.push({floor: fd.floor, idx: ti, callback: () => {
+        btn.classList.remove('lit');
+        stopWaitingMusic(fd.floor);
+      }});
+      if (!doorOpen) startTravel();
+    } else if (!remoteActive && alreadyInQueue) {
+      // 원격에서 취소된 경우 — 일단 유지 (도착하면 자연 해소)
+    } else if (!remoteActive && !alreadyInQueue) {
       btn.classList.remove('lit');
     }
   });
