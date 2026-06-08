@@ -1,0 +1,35 @@
+{
+  "name": "hongmungwan",
+  "version": "1.0.0",
+  "description": "홍문관 엘리베이터",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --mac --dir"
+  },
+  "devDependencies": {
+    "electron": "^22.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.hongmungwan.app",
+    "productName": "홍문관",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "icon-512.png"
+    },
+    "files": [
+      "main.js",
+      "index.html",
+      "홍문관_fixed.html",
+      "manifest.json",
+      "logo.svg",
+      "logo.png",
+      "LOGO2.png",
+      "icon-192.png",
+      "icon-512.png",
+      "BG1.jpg",
+      "*.mp3"
+    ]
+  }
+}
