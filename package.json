@@ -16,7 +16,7 @@
     "productName": "홍문관",
     "mac": {
       "category": "public.app-category.utilities",
-      "icon": "icon-512.png"
+      "icon": "icon.icns"
     },
     "files": [
       "main.js",

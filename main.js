@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, nativeImage } = require('electron');
+const { app, BrowserWindow, Tray, nativeImage, Menu } = require('electron');
 const path = require('path');
 
 let tray = null;
@@ -12,6 +12,13 @@ function createTray() {
   resized.setTemplateImage(true);
   tray = new Tray(resized);
   tray.setToolTip('홍문관');
+
+  const contextMenu = Menu.buildFromTemplate([
+    { label: '열기', click: () => { if (win) showWindow(tray.getBounds()); } },
+    { type: 'separator' },
+    { label: '종료', click: () => app.quit() },
+  ]);
+  tray.setContextMenu(contextMenu);
 
   tray.on('click', (event, bounds) => {
     if (win && win.isVisible()) {
