@@ -10,6 +10,7 @@
 <meta name="theme-color" content="#0012DE">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
 <title>홍문관</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap');
@@ -19,15 +20,17 @@
   html, body {
     width: 100%; min-height: 100vh;
     background: #e8e8e6;
-    display: flex; align-items: center; justify-content: center;
+    display: flex; align-items: flex-start; justify-content: center;
     font-family: 'Jost', sans-serif;
-    padding: 40px 0;
+    padding: 24px 0;
   }
 
   .module {
     background: var(--bg);
     border: 1.1px solid var(--ink);
-    padding: 48px 40px 40px;
+    padding: 64px 20px 24px;
+    width: 260px;
+    transform-origin: top center;
     position: relative;
     transition: background 1.2s ease, filter 1.2s ease;
   }
@@ -42,14 +45,15 @@
 
   .layout {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 48px;
+    gap: 20px;
     position: relative;
     z-index: 1;
   }
 
   .panel {
-    width: 180px;
+    width: 160px;
     border: 1.1px solid var(--ink);
     flex-shrink: 0;
     position: relative;
@@ -57,10 +61,10 @@
     background: var(--bg);
   }
   .grid {
-    padding: 14px;
+    padding: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 6px;
   }
   .floor-btn {
     position: relative;
@@ -83,14 +87,14 @@
 
   .seg-wrap { border: 1.1px solid var(--ink); padding: 10px; flex-shrink: 0; position: relative; z-index: 1; background: var(--bg); }
   .seg-grid { display: grid; gap: 4px; }
-  .seg-cell { width: 36px; height: 36px; border: 1.1px solid var(--ink); background: var(--bg); transition: background 0.08s; }
+  .seg-cell { width: 18px; height: 18px; border: 1.1px solid var(--ink); background: var(--bg); transition: background 0.08s; }
   .seg-cell.on { background: var(--ink); }
 
   .elev-track {
     position: relative;
     z-index: 1;
-    width: 240px;
-    height: calc(100vh - 200px);
+    width: 160px;
+    height: 140px;
     flex-shrink: 0;
   }
   .elev-car {
@@ -107,7 +111,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-    width: 180px;
+    width: 160px;
     flex-shrink: 0;
     position: relative;
     z-index: 1;
@@ -137,7 +141,7 @@
 
   .hongik-logo {
     position: absolute;
-    bottom: 14px; right: 16px;
+    top: 14px; left: 16px;
     z-index: 10;
   }
 
@@ -153,8 +157,6 @@
     transition: background 0.06s, color 0.06s;
   }
   .back-btn:hover { background: var(--ink); color: var(--bg); }
-
-
 
   /* ── 로딩 화면 ── */
   #loading {
@@ -179,18 +181,16 @@
     z-index: 1000;
     transition: opacity 0.6s ease;
   }
-
   .landing-elevs {
     position: absolute;
     top: calc(50% - 55px);
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 48px;
+    gap: 32px;
     align-items: flex-start;
   }
   #landing.fade-out { opacity: 0; pointer-events: none; }
-
   .landing-elev {
     cursor: pointer;
     position: relative;
@@ -198,22 +198,19 @@
     flex-direction: column;
     align-items: center;
   }
-
   .landing-track {
-    width: 72px;
-    height: 110px;
+    width: 52px;
+    height: 78px;
     position: relative;
     flex-shrink: 0;
   }
-
   .landing-car {
     position: absolute;
     left: 0; right: 0;
     top: 0;
-    height: 110px;
+    height: 78px;
   }
   .landing-car svg { width: 100%; height: 100%; }
-
   .landing-queue {
     display: flex;
     flex-direction: column;
@@ -225,32 +222,6 @@
   /* 메인 앱 초기엔 숨김 */
   #app { opacity: 0; transition: opacity 0.6s ease 0.3s; }
   #app.visible { opacity: 1; }
-
-  /* ── 모바일 반응형 ───────────────────────────────────────── */
-  @media (max-width: 768px) {
-    html, body { padding: 16px 0; align-items: flex-start; }
-    .module { padding: 48px 16px 24px; width: 100%; }
-    .layout { flex-direction: column; align-items: center; gap: 20px; }
-    .panel { width: 160px; }
-    .grid { padding: 10px; gap: 6px; }
-    .btn-label { font-size: 12px; }
-    .seg-cell { width: 24px; height: 24px; }
-    .elev-track { width: 100%; max-width: 240px; height: 40vh; }
-    .door-box { width: 160px; }
-    .landing-elevs { gap: 20px; }
-    .landing-track { width: 60px; height: 80px; }
-    .landing-car { height: 80px; }
-  }
-
-  @media (max-width: 480px) {
-    .seg-cell { width: 18px; height: 18px; }
-    .panel { width: 140px; }
-    .door-box { width: 140px; }
-    .elev-track { height: 35vh; }
-    .landing-track { width: 48px; height: 64px; }
-    .landing-car { height: 64px; }
-    .landing-elevs { gap: 12px; }
-  }
 </style>
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -418,6 +389,13 @@
         </svg>
       </div>
     </div>
+    <div style="display:flex;align-items:center;gap:6px;justify-content:center;">
+      <span style="font-size:9px;letter-spacing:0.1em;color:#999;">층당</span>
+      <input id="travel-sec-input" type="number" min="1" max="3600" step="1" value="1"
+        style="width:54px;font-family:'Jost',sans-serif;font-size:11px;border:1.1px solid var(--ink);background:var(--bg);color:var(--ink);text-align:center;padding:3px 4px;outline:none;"
+        oninput="onTravelSecChange(this.value)">
+      <span style="font-size:9px;letter-spacing:0.1em;color:#999;">초</span>
+    </div>
     <div class="door-box" id="door-box">
       <button class="door-btn" id="door-open">◁▷</button>
       <button class="door-btn" id="door-close">▷◁</button>
@@ -466,9 +444,114 @@ const ELEV_ACCESS = {
   2: ['B2','LOBBY','2F','4F','6F','8F'],
 };
 
+// ── 엘베별 독립 상태 ──────────────────────────────────────────
+const elevStates = {
+  0: { floorIdx:5, queue:[], travelTimer:null, doorTimer:null, doorOpen:true, direction:0, elapsed:0, lastTick:0 },
+  1: { floorIdx:5, queue:[], travelTimer:null, doorTimer:null, doorOpen:true, direction:0, elapsed:0, lastTick:0 },
+  2: { floorIdx:5, queue:[], travelTimer:null, doorTimer:null, doorOpen:true, direction:0, elapsed:0, lastTick:0 },
+};
+
+// 각 엘베 백그라운드 타이머 (항상 돌아감)
+function startElevBackground(idx) {
+  const st = elevStates[idx];
+  st.lastTick = Date.now();
+  st.bgTimer = setInterval(() => {
+    if (!st.travelTimer) return;
+    const now = Date.now();
+    st.elapsed += now - st.lastTick;
+    st.lastTick = now;
+    const travelMs = customTravelMs !== null ? customTravelMs : 1000;
+    if (st.elapsed < travelMs) return;
+    st.elapsed = 0;
+    st.floorIdx += st.direction;
+    if (st.floorIdx < 0 || st.floorIdx >= floorOrder.length) {
+      clearInterval(st.travelTimer); st.travelTimer = null; st.direction = 0; return;
+    }
+    const curFloor = floorOrder[st.floorIdx];
+    if (selectedElev === idx) {
+      setFloorDisplay(curFloor);
+      updateColorForFloor(curFloor, st.floorIdx);
+    }
+    const stopHere = st.queue.findIndex(q => q.idx === st.floorIdx);
+    if (stopHere !== -1) {
+      clearInterval(st.travelTimer); st.travelTimer = null;
+      if (selectedElev === idx) {
+        updateElevCarSmooth(st.floorIdx, st.floorIdx);
+        stopMotorSound();
+      }
+      const arr = st.queue.splice(stopHere, 1)[0];
+      if (arr.callback) arr.callback();
+      if (selectedElev === idx && curFloor === '7F') {
+        const mod = document.getElementById('module');
+        clearTimeout(mod._colorTimer);
+        mod.style.transition = 'background 0.15s ease';
+        mod.style.background = '#FFFF00';
+      }
+      const sd = st.queue.filter(q => st.direction === 1 ? q.idx > st.floorIdx : q.idx < st.floorIdx);
+      if (sd.length === 0 && st.queue.length > 0) st.direction = -st.direction;
+      else if (st.queue.length === 0) st.direction = 0;
+      bgOpenDoor(idx);
+    }
+  }, 200);
+}
+
+function bgOpenDoor(idx) {
+  const st = elevStates[idx];
+  st.doorOpen = true;
+  if (selectedElev === idx) { animateDoor(true); playDoorSound(true); }
+  clearTimeout(st.doorTimer);
+  st.doorTimer = setTimeout(() => bgCloseDoor(idx), 5000);
+}
+
+function bgCloseDoor(idx) {
+  const st = elevStates[idx];
+  if (!st.doorOpen) return;
+  st.doorOpen = false;
+  if (selectedElev === idx) { animateDoor(false); playDoorSound(false); }
+  clearTimeout(st.doorTimer);
+  setTimeout(() => { if (!st.doorOpen) bgStartTravel(idx); }, 650);
+}
+
+function bgStartTravel(idx) {
+  const st = elevStates[idx];
+  if (st.doorOpen || st.travelTimer || st.queue.length === 0) return;
+  if (st.direction === 0) st.direction = st.queue[0].idx > st.floorIdx ? 1 : -1;
+  const sameDir = st.queue.filter(q => st.direction === 1 ? q.idx > st.floorIdx : q.idx < st.floorIdx);
+  if (sameDir.length === 0) { st.direction = 0; return; }
+  const finalStop = st.direction === 1
+    ? sameDir.reduce((a,b) => a.idx < b.idx ? a : b)
+    : sameDir.reduce((a,b) => a.idx > b.idx ? a : b);
+  if (selectedElev === idx) {
+    updateElevCarSmooth(st.floorIdx, finalStop.idx);
+    startMotorSound(Math.abs(finalStop.idx - st.floorIdx));
+  }
+  st.elapsed = 0;
+  st.lastTick = Date.now();
+  st.travelTimer = true;
+}
+
+function updateColorForFloor(curFloor, floorIdx) {
+  const mod = document.getElementById('module');
+  clearTimeout(mod._colorTimer);
+  if (BASEMENT.includes(curFloor)) {
+    mod._colorTimer = setTimeout(() => {
+      mod.style.transition = 'filter 1.8s ease';
+      mod.style.filter = 'invert(1)';
+    }, 200);
+  } else {
+    mod._colorTimer = setTimeout(() => {
+      if (floorOrder[floorIdx] === '7F') return;
+      mod.style.transition = 'filter 1.8s ease, background 0s';
+      mod.style.filter = '';
+      mod.style.background = 'var(--bg)';
+    }, 200);
+  }
+}
+
 function selectElev(idx) {
   selectedElev = idx;
   animLandingDoor(idx, true);
+  const st = elevStates[idx];
   setTimeout(() => {
     const landing = document.getElementById('landing');
     const app = document.getElementById('app');
@@ -476,7 +559,16 @@ function selectElev(idx) {
     app.classList.add('visible');
     setTimeout(() => { landing.style.display = 'none'; }, 700);
     applyElevAccess(idx);
-    updateBgImage(floorOrder[currentFloorIdx]);
+    currentFloorIdx = st.floorIdx;
+    updateElevCar(st.floorIdx);
+    updateBgImage(floorOrder[st.floorIdx]);
+    animateDoor(st.doorOpen);
+    setFloorDisplay(floorOrder[st.floorIdx]);
+    floors.forEach(fd => {
+      const btn = floorBtns[fd.floor];
+      if (!btn) return;
+      btn.classList.toggle('lit', !!st.queue.find(q => q.floor === fd.floor));
+    });
   }, 450);
 }
 
@@ -493,6 +585,10 @@ function applyElevAccess(idx) {
 
 window.addEventListener('load', () => {
   initLanding();
+  [0,1,2].forEach(i => {
+    startElevBackground(i);
+    bgOpenDoor(i);
+  });
   const allPx = Array.from(document.querySelectorAll('.lpx, .wpx'));
   const shuffled = allPx.sort(() => Math.random() - 0.5);
   const totalDur = 1200;
@@ -511,6 +607,8 @@ window.addEventListener('load', () => {
 });
 
 function goBack() {
+  stopMotorSound();
+  floors.forEach(fd => stopWaitingMusic(fd.floor));
   const landing = document.getElementById('landing');
   const app = document.getElementById('app');
   app.classList.remove('visible');
@@ -519,6 +617,7 @@ function goBack() {
     if (!btn) return;
     btn.style.opacity = '1';
     btn.style.pointerEvents = '';
+    btn.classList.remove('lit');
   });
   setTimeout(() => {
     landing.style.display = '';
@@ -534,7 +633,7 @@ function goBack() {
 
 // ── 세그먼트 그리드 ──────────────────────────────────────────
 const segGrid = document.getElementById('seg-grid');
-let cells = [], COLS = 11;
+let cells = [], COLS = 9;
 
 function buildGrid(cols) {
   COLS = cols;
@@ -551,7 +650,7 @@ function buildGrid(cols) {
     }
   }
 }
-buildGrid(11);
+buildGrid(9);
 
 function setGrid(pattern) {
   for (let r = 0; r < 7; r++)
@@ -597,14 +696,6 @@ function renderString(str) {
 
 let currentMode = 'floor', lastFloor = 'L';
 
-function setMode(mode) {
-  currentMode = mode;
-  const isMobile = window.innerWidth <= 768;
-  buildGrid(isMobile ? 7 : 11);
-  renderString(lastFloor);
-}
-
-
 function updateBgImage(f) {
   document.body.style.backgroundImage = f === 'LOBBY' ? 'url("BG1.jpg")' : 'none';
   document.body.style.backgroundSize = 'cover';
@@ -613,7 +704,7 @@ function updateBgImage(f) {
 
 function setFloorDisplay(f) {
   lastFloor = f === 'LOBBY' ? 'L' : f.replace('F','').replace('B','-');
-  if (currentMode === 'floor') renderString(lastFloor);
+  renderString(lastFloor);
   updateBgImage(f);
 }
 
@@ -638,7 +729,8 @@ function updateElevCar(floorIdx) {
 
 function updateElevCarSmooth(fromIdx, toIdx) {
   const car = document.getElementById('elev-car');
-  const dur = Math.abs(toIdx - fromIdx) * 1.0;
+  const travelMs = customTravelMs !== null ? customTravelMs : 1000;
+  const dur = Math.abs(toIdx - fromIdx) * (travelMs / 1000);
   car.style.transition = `top ${dur}s linear`;
   car.style.top = getCarTop(toIdx) + 'px';
 }
@@ -658,10 +750,6 @@ function drawWires() {
     let x = 0, y = 0, cur = el;
     while (cur && cur !== base) { x += cur.offsetLeft; y += cur.offsetTop; cur = cur.offsetParent; }
     return { x, y, w: el.offsetWidth, h: el.offsetHeight };
-  }
-  function centerOf(el) {
-    const o = offsetFrom(el, module);
-    return { x: o.x + o.w / 2, y: o.y + o.h / 2 };
   }
 
   const car = document.getElementById('elev-car');
@@ -719,6 +807,21 @@ function drawWires() {
 
 (function wireLoop() { drawWires(); requestAnimationFrame(wireLoop); })();
 
+// ── 층당 이동시간 수치 입력 ──────────────────────────────────
+let customTravelMs = 1000;
+
+function onTravelSecChange(val) {
+  const sec = parseFloat(val);
+  if (isNaN(sec) || sec <= 0) return;
+  customTravelMs = Math.round(sec * 1000);
+  const newH = Math.max(140, Math.round(140 * sec));
+  const track = document.getElementById('elev-track');
+  if (track) {
+    track.style.height = newH + 'px';
+    updateElevCar(elevStates[selectedElev].floorIdx);
+  }
+}
+
 // ── 오디오 ──────────────────────────────────────────────────
 const floors = [
   {floor:'9F',  note:'A5'},{floor:'8F',  note:'G5'},{floor:'7F',  note:'E5'},
@@ -729,9 +832,12 @@ const floors = [
   {floor:'B4', note:'E3'},{floor:'B5', note:'D3'},{floor:'B6', note:'C3'},
 ];
 const counts = {}; floors.forEach(f => counts[f.floor] = 0);
-const BPM = 180, BEAT = 60/BPM, PREVIEW_BEAT = 60/90;
+const PREVIEW_BEAT = 60/90;
+const floorOrder=['B6','B5','B4','B3','B2','LOBBY','1F','2F','3F','4F','5F','6F','7F','8F','9F'];
+const BASEMENT=['B2','B3','B4','B5','B6'];
 let actx = null;
 let tracksInitialized = false;
+
 function getCtx() {
   if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
   if (actx.state === 'suspended') actx.resume();
@@ -746,11 +852,11 @@ function toFreq(note) {
 }
 
 let _motorNodes = null;
-function startMotorSound(floors) {
+function startMotorSound(numFloors) {
   stopMotorSound();
   const c = getCtx();
   const t = c.currentTime;
-  const dur = Math.max(floors, 1) * 1.0 + 0.5;
+  const dur = Math.max(numFloors, 1) * (customTravelMs/1000) + 0.5;
   const osc = c.createOscillator(), osc2 = c.createOscillator(), oscGain = c.createGain();
   osc.connect(oscGain); osc2.connect(oscGain); oscGain.connect(c.destination);
   osc.type = 'sine'; osc.frequency.value = 42;
@@ -761,22 +867,7 @@ function startMotorSound(floors) {
   oscGain.gain.linearRampToValueAtTime(0, t + dur);
   osc.start(t); osc.stop(t + dur + 0.1);
   osc2.start(t); osc2.stop(t + dur + 0.1);
-  const bufLen = Math.floor(c.sampleRate * dur);
-  const buf = c.createBuffer(1, bufLen, c.sampleRate);
-  const data = buf.getChannelData(0);
-  for (let i = 0; i < bufLen; i++) data[i] = (Math.random() * 2 - 1);
-  const noise = c.createBufferSource();
-  noise.buffer = buf;
-  const filter = c.createBiquadFilter();
-  filter.type = 'lowpass'; filter.frequency.value = 80;
-  const noiseGain = c.createGain();
-  noise.connect(filter); filter.connect(noiseGain); noiseGain.connect(c.destination);
-  noiseGain.gain.setValueAtTime(0, t);
-  noiseGain.gain.linearRampToValueAtTime(0.14, t + 0.8);
-  noiseGain.gain.setValueAtTime(0.14, t + dur - 0.6);
-  noiseGain.gain.linearRampToValueAtTime(0, t + dur);
-  noise.start(t); noise.stop(t + dur + 0.1);
-  _motorNodes = { osc, noise, gain: oscGain, noiseGain };
+  _motorNodes = { gain: oscGain, noiseGain: { gain: { value: 0, cancelScheduledValues:()=>{}, setValueAtTime:()=>{}, linearRampToValueAtTime:()=>{} } } };
 }
 
 function stopMotorSound() {
@@ -786,9 +877,6 @@ function stopMotorSound() {
     _motorNodes.gain.gain.cancelScheduledValues(t);
     _motorNodes.gain.gain.setValueAtTime(_motorNodes.gain.gain.value, t);
     _motorNodes.gain.gain.linearRampToValueAtTime(0, t + 0.3);
-    _motorNodes.noiseGain.gain.cancelScheduledValues(t);
-    _motorNodes.noiseGain.gain.setValueAtTime(_motorNodes.noiseGain.gain.value, t);
-    _motorNodes.noiseGain.gain.linearRampToValueAtTime(0, t + 0.3);
   } catch(e) {}
   _motorNodes = null;
 }
@@ -819,18 +907,6 @@ function playDoorSound(opening) {
     gain.gain.linearRampToValueAtTime(0.1, t + 0.04);
     gain.gain.linearRampToValueAtTime(0.05, t + 0.4);
     gain.gain.linearRampToValueAtTime(0, t + 0.55);
-    const impBuf = c.createBuffer(1, c.sampleRate * 0.08, c.sampleRate);
-    const impData = impBuf.getChannelData(0);
-    for (let i = 0; i < impData.length; i++) impData[i] = (Math.random() * 2 - 1);
-    const imp = c.createBufferSource();
-    imp.buffer = impBuf;
-    const impFilter = c.createBiquadFilter();
-    impFilter.type = 'lowpass'; impFilter.frequency.value = 200;
-    const impGain = c.createGain();
-    imp.connect(impFilter); impFilter.connect(impGain); impGain.connect(c.destination);
-    impGain.gain.setValueAtTime(0.25, t + 0.55);
-    impGain.gain.exponentialRampToValueAtTime(0.001, t + 0.62);
-    imp.start(t + 0.55); imp.stop(t + 0.65);
   }
   noise.start(t); noise.stop(t + 0.7);
 }
@@ -838,17 +914,11 @@ function playDoorSound(opening) {
 function playTone(freq, t, dur, vol=0.05) {
   const c = getCtx();
   const o = c.createOscillator(), g = c.createGain();
-  const o2 = c.createOscillator(), g2 = c.createGain();
   o.connect(g); g.connect(c.destination);
-  o2.connect(g2); g2.connect(c.destination);
   o.type = 'sine'; o.frequency.value = freq;
-  o2.type = 'sine'; o2.frequency.value = freq * 2.756;
   g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+0.02);
   g.gain.setValueAtTime(vol,t+dur*0.6); g.gain.linearRampToValueAtTime(0,t+dur*1.4);
-  g2.gain.setValueAtTime(0,t); g2.gain.linearRampToValueAtTime(vol*0.25,t+0.01);
-  g2.gain.exponentialRampToValueAtTime(0.001,t+dur*0.5);
   o.start(t); o.stop(t+dur*1.5);
-  o2.start(t); o2.stop(t+dur*0.6);
 }
 
 // ── 층별 대기음악 ────────────────────────────────────────────
@@ -893,86 +963,12 @@ function fadeTrack(floor, targetVol, duration=300) {
 function startWaitingMusic(floor) { fadeTrack(floor, 0.7); }
 function stopWaitingMusic(floor)  { fadeTrack(floor, 0); }
 
-// ── 엘리베이터 로직 ─────────────────────────────────────────
-const floorOrder=['B6','B5','B4','B3','B2','LOBBY','1F','2F','3F','4F','5F','6F','7F','8F','9F'];
-const BASEMENT=['B2','B3','B4','B5','B6'];
-let travelTimer=null, doorTimer=null, doorOpen=true, direction=0;
-const queue=[];
-
+// ── UI 도어 애니메이션 ───────────────────────────────────────
 function animateDoor(open) {
   const animL=document.getElementById('anim-left'),animR=document.getElementById('anim-right'),line=document.getElementById('door-line');
   if(open){animL.setAttribute('from','8');animL.setAttribute('to','-20');animR.setAttribute('from','36');animR.setAttribute('to','64');line.setAttribute('stroke','transparent');}
   else{animL.setAttribute('from','-20');animL.setAttribute('to','8');animR.setAttribute('from','64');animR.setAttribute('to','36');line.setAttribute('stroke','#f8f8f6');}
   animL.beginElement();animR.beginElement();
-}
-
-function openDoor() {
-  doorOpen=true; animateDoor(true); playDoorSound(true);
-  clearTimeout(doorTimer);
-  doorTimer=setTimeout(()=>closeDoor(),5000);
-}
-
-function closeDoor() {
-  if(!doorOpen) return;
-  doorOpen=false; animateDoor(false); playDoorSound(false);
-  clearTimeout(doorTimer);
-  setTimeout(()=>{ if(!doorOpen) startTravel(); },650);
-}
-
-function startTravel() {
-  if(doorOpen) return;
-  if(travelTimer||queue.length===0) return;
-  if(direction===0) direction=queue[0].idx>currentFloorIdx?1:-1;
-  const sameDir=queue.filter(q=>direction===1?q.idx>currentFloorIdx:q.idx<currentFloorIdx);
-  if(sameDir.length===0){direction=0;return;}
-  const finalStop=direction===1
-    ?sameDir.reduce((a,b)=>a.idx<b.idx?a:b)
-    :sameDir.reduce((a,b)=>a.idx>b.idx?a:b);
-  updateElevCarSmooth(currentFloorIdx, finalStop.idx);
-  startMotorSound(Math.abs(finalStop.idx - currentFloorIdx));
-
-  travelTimer=setInterval(()=>{
-    currentFloorIdx+=direction;
-    if(currentFloorIdx<0||currentFloorIdx>=floorOrder.length){
-      clearInterval(travelTimer);travelTimer=null;direction=0;return;
-    }
-    const curFloor = floorOrder[currentFloorIdx];
-    setFloorDisplay(curFloor);
-
-    const mod = document.getElementById('module');
-    clearTimeout(mod._colorTimer);
-    if (BASEMENT.includes(curFloor)) {
-      mod._colorTimer = setTimeout(() => {
-        mod.style.transition = 'filter 1.8s ease';
-        mod.style.filter = 'invert(1)';
-      }, 200);
-    } else {
-      mod._colorTimer = setTimeout(() => {
-        if (floorOrder[currentFloorIdx] === '7F') return;
-        mod.style.transition = 'filter 1.8s ease, background 0s';
-        mod.style.filter = '';
-        mod.style.background = 'var(--bg)';
-      }, 200);
-    }
-
-    const stopHere=queue.findIndex(q=>q.idx===currentFloorIdx);
-    if(stopHere!==-1){
-      clearInterval(travelTimer);travelTimer=null;
-      updateElevCarSmooth(currentFloorIdx, currentFloorIdx);
-      stopMotorSound();
-      const arr=queue.splice(stopHere,1)[0];
-      if(arr.callback) arr.callback();
-      if (floorOrder[currentFloorIdx] === '7F') {
-        clearTimeout(mod._colorTimer);
-        mod.style.transition = 'background 0.15s ease';
-        mod.style.background = '#FFFF00';
-      }
-      const sd=queue.filter(q=>direction===1?q.idx>currentFloorIdx:q.idx<currentFloorIdx);
-      if(sd.length===0&&queue.length>0) direction=-direction;
-      else if(queue.length===0) direction=0;
-      openDoor();
-    }
-  },1000);
 }
 
 // ── UI 버튼 ─────────────────────────────────────────────────
@@ -985,21 +981,20 @@ floors.forEach(fd=>{
   const count=document.createElement('span');count.className='btn-count';
   btn.appendChild(label);btn.appendChild(count);
   btn.addEventListener('click',()=>{
+    const st = elevStates[selectedElev];
     const ti=floorOrder.indexOf(fd.floor);
     if(!ELEV_ACCESS[selectedElev].includes(fd.floor)) return;
-    if(ti===currentFloorIdx||queue.find(q=>q.idx===ti)||btn.classList.contains('lit')) return;
+    if(ti===st.floorIdx||st.queue.find(q=>q.idx===ti)||btn.classList.contains('lit')) return;
     playTone(toFreq(fd.note),getCtx().currentTime+0.03,PREVIEW_BEAT*0.8);
     btn.classList.add('pressing');setTimeout(()=>btn.classList.remove('pressing'),100);
     btn.classList.add('lit');
-    pushButtonState(fd.floor, true);
     if (!tracksInitialized) { tracksInitialized = true; initAllTracks(); }
     startWaitingMusic(fd.floor);
-    queue.push({floor:fd.floor,idx:ti,callback:()=>{
+    st.queue.push({floor:fd.floor,idx:ti,callback:()=>{
       btn.classList.remove('lit');
-      pushButtonState(fd.floor, false);
       stopWaitingMusic(fd.floor);
     }});
-    if(!doorOpen) startTravel();
+    if(!st.doorOpen) bgStartTravel(selectedElev);
     counts[fd.floor]++;count.textContent=counts[fd.floor];
   });
   floorBtns[fd.floor]=btn;
@@ -1009,19 +1004,15 @@ floors.forEach(fd=>{
 document.getElementById('door-open').addEventListener('click',()=>{
   document.getElementById('door-open').classList.add('active');
   setTimeout(()=>document.getElementById('door-open').classList.remove('active'),200);
-  openDoor();
+  bgOpenDoor(selectedElev);
 });
 document.getElementById('door-close').addEventListener('click',()=>{
   document.getElementById('door-close').classList.add('active');
   setTimeout(()=>document.getElementById('door-close').classList.remove('active'),200);
-  clearTimeout(doorTimer);closeDoor();
+  bgCloseDoor(selectedElev);
 });
 
-window.addEventListener('load',()=>updateElevCar(currentFloorIdx));
-// 초기 문 열기 — 소리 없이
-doorOpen=true; animateDoor(true);
-doorTimer=setTimeout(()=>closeDoor(),5000);
-
+window.addEventListener('load',()=>updateElevCar(5));
 
 // ── Firebase 실시간 연동 ─────────────────────────────────────
 const firebaseConfig = {
@@ -1034,47 +1025,13 @@ const firebaseConfig = {
   appId: "1:538326168904:web:ca9bbe38cdbbeb2480af7d"
 };
 firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+var db = firebase.database();
 
-// 접속자 수
 const userRef = db.ref('activeUsers').push(true);
 userRef.onDisconnect().remove();
 db.ref('activeUsers').on('value', snap => {
-  const count = snap.numChildren();
   const el = document.getElementById('user-count');
-  if (el) el.textContent = count;
-});
-
-// 버튼 상태 공유
-function pushButtonState(floor, active) {
-  db.ref(`buttons/${floor}`).set(active);
-}
-
-// 다른 사람이 누른 버튼 반영 + 큐에 추가
-db.ref('buttons').on('value', snap => {
-  const data = snap.val() || {};
-  floors.forEach(fd => {
-    const btn = floorBtns[fd.floor];
-    if (!btn) return;
-    const remoteActive = !!data[fd.floor];
-    const alreadyInQueue = !!queue.find(q => q.floor === fd.floor);
-    const ti = floorOrder.indexOf(fd.floor);
-
-    if (remoteActive && !alreadyInQueue && ti !== currentFloorIdx) {
-      // 버튼 켜기
-      btn.classList.add('lit');
-      // 큐에 추가 (없을 때만)
-      queue.push({floor: fd.floor, idx: ti, callback: () => {
-        btn.classList.remove('lit');
-        stopWaitingMusic(fd.floor);
-      }});
-      if (!doorOpen) startTravel();
-    } else if (!remoteActive && alreadyInQueue) {
-      // 원격에서 취소된 경우 — 일단 유지 (도착하면 자연 해소)
-    } else if (!remoteActive && !alreadyInQueue) {
-      btn.classList.remove('lit');
-    }
-  });
+  if (el) el.textContent = snap.numChildren();
 });
 
 // ── Service Worker 등록 ──────────────────────────────────────
