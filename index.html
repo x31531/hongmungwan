@@ -13,7 +13,12 @@
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 <title>홍문관</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap');
+  @font-face {
+    font-family: 'Main';
+    src: url('1142.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root { --bg: #f8f8f6; --ink: #0012DE; }
 
@@ -21,7 +26,8 @@
     width: 100%; min-height: 100vh;
     background: #e8e8e6;
     display: flex; align-items: flex-start; justify-content: center;
-    font-family: 'Jost', sans-serif;
+    font-family: 'Main', sans-serif;
+    letter-spacing: -0.03em;
     padding: 24px 0;
   }
 
@@ -147,7 +153,7 @@
 
   .back-btn {
     padding: 5px 12px;
-    font-family: 'Jost', sans-serif;
+    font-family: 'Main', sans-serif;
     font-size: 13px;
     border: 1.1px solid var(--ink);
     background: var(--bg);
@@ -289,6 +295,21 @@
 
 <!-- ── 랜딩 페이지 ── -->
 <div id="landing">
+  <div style="position:absolute;top:16px;right:16px;z-index:10;">
+    <button onclick="showInstallModal()" style="font-family:'Main',sans-serif;font-size:10px;letter-spacing:0.1em;border:1.1px solid #0012DE;background:transparent;color:#0012DE;padding:6px 12px;cursor:pointer;">INSTALL</button>
+  </div>
+
+  <!-- 설치 모달 -->
+  <div id="install-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:100;align-items:center;justify-content:center;">
+    <div style="background:#f8f8f6;border:1.1px solid #0012DE;padding:32px 28px;width:320px;position:relative;">
+      <div style="font-family:'Main',sans-serif;font-size:13px;letter-spacing:0.08em;color:#0012DE;margin-bottom:20px;">맥 위젯으로 설치하기</div>
+      <div style="font-family:'Main',sans-serif;font-size:10px;color:#999;line-height:1.8;margin-bottom:20px;">터미널을 열고 아래 명령어를 붙여넣으세요.<br>Node.js가 없어도 자동으로 설치됩니다.</div>
+      <div id="install-cmd" style="font-family:monospace;font-size:9px;background:#e8e8e6;color:#0012DE;padding:12px;word-break:break-all;line-height:1.6;cursor:pointer;" onclick="copyInstallCmd()">curl -fsSL https://raw.githubusercontent.com/x31531/hongmunqwan/main/install.sh | bash</div>
+      <div id="copy-msg" style="font-family:'Main',sans-serif;font-size:9px;color:#999;margin-top:8px;opacity:0;transition:opacity 0.3s;">복사됨</div>
+      <button onclick="hideInstallModal()" style="position:absolute;top:12px;right:14px;font-family:'Main',sans-serif;font-size:12px;border:none;background:none;color:#999;cursor:pointer;">✕</button>
+    </div>
+  </div>
+
   <div class="landing-elevs">
   <div class="landing-elev">
     <div class="landing-track" id="lt-0">
@@ -392,7 +413,7 @@
     <div style="display:flex;align-items:center;gap:6px;justify-content:center;">
       <span style="font-size:9px;letter-spacing:0.1em;color:#999;">층당</span>
       <input id="travel-sec-input" type="number" min="1" max="3600" step="1" value="1"
-        style="width:54px;font-family:'Jost',sans-serif;font-size:11px;border:1.1px solid var(--ink);background:var(--bg);color:var(--ink);text-align:center;padding:3px 4px;outline:none;"
+        style="width:54px;font-family:'Main',sans-serif;font-size:11px;border:1.1px solid var(--ink);background:var(--bg);color:var(--ink);text-align:center;padding:3px 4px;outline:none;"
         oninput="onTravelSecChange(this.value)">
       <span style="font-size:9px;letter-spacing:0.1em;color:#999;">초</span>
     </div>
@@ -405,6 +426,20 @@
 </div><!-- #app -->
 
 <script>
+function showInstallModal() {
+  const m = document.getElementById('install-modal');
+  m.style.display = 'flex';
+}
+function hideInstallModal() {
+  document.getElementById('install-modal').style.display = 'none';
+}
+function copyInstallCmd() {
+  navigator.clipboard.writeText('curl -fsSL https://raw.githubusercontent.com/x31531/hongmunqwan/main/install.sh | bash');
+  const msg = document.getElementById('copy-msg');
+  msg.style.opacity = '1';
+  setTimeout(() => msg.style.opacity = '0', 1500);
+}
+
 // ── 랜딩 페이지 ──────────────────────────────────────────────
 function initLanding() {
   [0,1,2].forEach(i => {
