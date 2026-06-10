@@ -34,8 +34,9 @@
   .module {
     background: var(--bg);
     border: 1.1px solid var(--ink);
+    border-radius: 20px;
     padding: 64px 20px 24px;
-    width: 260px;
+    width: 320px;
     transform-origin: top center;
     position: relative;
     transition: background 1.2s ease, filter 1.2s ease;
@@ -53,6 +54,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
     gap: 20px;
     position: relative;
     z-index: 1;
@@ -65,15 +67,18 @@
     position: relative;
     z-index: 1;
     background: var(--bg);
+    margin: 0 auto;
   }
   .grid {
     padding: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6px;
+    box-sizing: border-box;
   }
   .floor-btn {
     position: relative;
+    width: 100%;
     aspect-ratio: 1;
     border-radius: 50%;
     border: 1.1px solid var(--ink);
@@ -81,17 +86,18 @@
     cursor: pointer; outline: none;
     display: flex; align-items: center; justify-content: center;
     transition: background 0.06s;
+    overflow: hidden;
   }
   .floor-btn:hover { background: #f0f0ee; }
   .floor-btn.lit { background: var(--ink); }
-  .floor-btn.lit .btn-label { color: var(--bg); }
-  .floor-btn.lit .btn-count { color: rgba(255,255,255,0.4); }
+  .floor-btn.lit .cls-2 { fill: var(--ink); stroke: var(--bg); }
+  .floor-btn.lit .cls-3 { fill: var(--bg); }
   .floor-btn.playing { background: var(--ink); }
   .floor-btn.playing .btn-label { color: var(--bg); }
   .btn-label { font-size: 14px; font-weight: 400; color: var(--ink); line-height: 1; pointer-events: none; }
   .btn-count { position: absolute; top: 4px; right: 6px; font-size: 7px; color: #999; line-height: 1; }
 
-  .seg-wrap { border: 1.1px solid var(--ink); padding: 10px; flex-shrink: 0; position: relative; z-index: 1; background: var(--bg); }
+  .seg-wrap { border: 1.1px solid var(--ink); padding: 10px; flex-shrink: 0; position: relative; z-index: 1; background: var(--bg); width: fit-content; }
   .seg-grid { display: grid; gap: 4px; }
   .seg-cell { width: 18px; height: 18px; border: 1.1px solid var(--ink); background: var(--bg); transition: background 0.08s; }
   .seg-cell.on { background: var(--ink); }
@@ -102,6 +108,7 @@
     width: 160px;
     height: 140px;
     flex-shrink: 0;
+    margin: 0 auto;
   }
   .elev-car {
     position: absolute;
@@ -122,6 +129,7 @@
     position: relative;
     z-index: 1;
     background: var(--bg);
+    margin: 0 auto;
   }
   .door-btn {
     position: relative;
@@ -156,6 +164,7 @@
     font-family: 'Main', sans-serif;
     font-size: 13px;
     border: 1.1px solid var(--ink);
+    border-radius: 10px;
     background: var(--bg);
     color: var(--ink);
     cursor: pointer; outline: none;
@@ -163,6 +172,21 @@
     transition: background 0.06s, color 0.06s;
   }
   .back-btn:hover { background: var(--ink); color: var(--bg); }
+  .mute-btn {
+    padding: 5px 10px;
+    position: relative;
+    font-family: 'Main', sans-serif;
+    font-size: 11px;
+    border: 1.1px solid var(--ink);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--ink);
+    cursor: pointer; outline: none;
+    z-index: 10;
+    transition: background 0.06s, color 0.06s;
+  }
+  .mute-btn:hover { background: var(--ink); color: var(--bg); }
+  .mute-btn.muted { background: var(--ink); color: var(--bg); }
 
   /* ── 로딩 화면 ── */
   #loading {
@@ -203,6 +227,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
   .landing-track {
     width: 52px;
@@ -221,6 +246,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
     gap: 2px;
     margin-top: 8px;
   }
@@ -235,81 +261,9 @@
 </head>
 <body>
 
-<!-- ── 로딩 화면 ── -->
-<div id="loading">
-  <svg id="loading-logo" viewBox="0 0 187.39 152.16" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:auto;">
-    <rect class="lpx" x="63.57" y="1" width="21.68" height="21.68"/>
-    <rect class="lpx" x="88.86" y="1" width="21.68" height="21.68"/>
-    <rect class="lpx" x="114.14" y="1" width="21.68" height="21.68"/>
-    <rect class="lpx" x="139.43" y="1" width="21.68" height="21.68"/>
-    <rect class="lpx" x="164.71" y="1" width="21.68" height="21.68"/>
-    <rect class="lpx" x="63.57" y="26.68" width="21.68" height="21.68"/>
-    <rect class="lpx" x="63.57" y="52.35" width="21.68" height="21.68"/>
-    <rect class="lpx" x="63.57" y="78.03" width="21.68" height="21.68"/>
-    <rect class="lpx" x="88.86" y="26.68" width="21.68" height="21.68"/>
-    <rect class="lpx" x="114.14" y="26.68" width="21.68" height="21.68"/>
-    <rect class="lpx" x="139.43" y="26.68" width="21.68" height="21.68"/>
-    <rect class="lpx" x="164.71" y="26.68" width="21.68" height="21.68"/>
-    <rect class="lpx" x="164.71" y="52.35" width="21.68" height="21.68"/>
-    <rect class="lpx" x="164.71" y="78.03" width="21.68" height="21.68"/>
-    <rect class="lpx" x="63.57" y="103.81" width="21.68" height="21.68"/>
-    <rect class="lpx" x="63.57" y="129.48" width="21.68" height="21.68"/>
-    <rect class="lpx" x="164.71" y="103.81" width="21.68" height="21.68"/>
-    <rect class="lpx" x="164.71" y="129.48" width="21.68" height="21.68"/>
-    <rect class="lpx" x="38.29" y="103.81" width="21.68" height="21.68"/>
-    <rect class="lpx" x="38.29" y="129.48" width="21.68" height="21.68"/>
-    <rect class="lpx" x="139.43" y="103.81" width="21.68" height="21.68"/>
-    <rect class="lpx" x="139.43" y="129.48" width="21.68" height="21.68"/>
-    <rect class="lpx" x="13.01" y="103.81" width="21.68" height="21.68"/>
-    <rect class="lpx" x="13.01" y="129.48" width="21.68" height="21.68"/>
-    <rect class="lpx" x="114.14" y="103.81" width="21.68" height="21.68"/>
-    <rect class="lpx" x="114.14" y="129.48" width="21.68" height="21.68"/>
-    <rect class="wpx" x="51.57" y="1" width="21.68" height="21.68"/>
-    <rect class="wpx" x="76.85" y="1" width="21.68" height="21.68"/>
-    <rect class="wpx" x="102.14" y="1" width="21.68" height="21.68"/>
-    <rect class="wpx" x="127.42" y="1" width="21.68" height="21.68"/>
-    <rect class="wpx" x="152.71" y="1" width="21.68" height="21.68"/>
-    <rect class="wpx" x="51.57" y="26.68" width="21.68" height="21.68"/>
-    <rect class="wpx" x="51.57" y="52.35" width="21.68" height="21.68"/>
-    <rect class="wpx" x="51.57" y="78.03" width="21.68" height="21.68"/>
-    <rect class="wpx" x="76.85" y="26.68" width="21.68" height="21.68"/>
-    <rect class="wpx" x="102.14" y="26.68" width="21.68" height="21.68"/>
-    <rect class="wpx" x="127.42" y="26.68" width="21.68" height="21.68"/>
-    <rect class="wpx" x="152.71" y="26.68" width="21.68" height="21.68"/>
-    <rect class="wpx" x="152.71" y="52.35" width="21.68" height="21.68"/>
-    <rect class="wpx" x="152.71" y="78.03" width="21.68" height="21.68"/>
-    <rect class="wpx" x="51.57" y="103.81" width="21.68" height="21.68"/>
-    <rect class="wpx" x="51.57" y="129.48" width="21.68" height="21.68"/>
-    <rect class="wpx" x="152.71" y="103.81" width="21.68" height="21.68"/>
-    <rect class="wpx" x="152.71" y="129.48" width="21.68" height="21.68"/>
-    <rect class="wpx" x="26.28" y="103.81" width="21.68" height="21.68"/>
-    <rect class="wpx" x="26.28" y="129.48" width="21.68" height="21.68"/>
-    <rect class="wpx" x="127.42" y="103.81" width="21.68" height="21.68"/>
-    <rect class="wpx" x="127.42" y="129.48" width="21.68" height="21.68"/>
-    <rect class="wpx" x="1" y="103.81" width="21.68" height="21.68"/>
-    <rect class="wpx" x="1" y="129.48" width="21.68" height="21.68"/>
-    <rect class="wpx" x="102.14" y="103.81" width="21.68" height="21.68"/>
-    <rect class="wpx" x="102.14" y="129.48" width="21.68" height="21.68"/>
-  </svg>
-</div>
 
 <!-- ── 랜딩 페이지 ── -->
 <div id="landing">
-  <div style="position:absolute;top:16px;right:16px;z-index:10;">
-    <button onclick="showInstallModal()" style="font-family:'Main',sans-serif;font-size:10px;letter-spacing:0.1em;border:1.1px solid #0012DE;background:transparent;color:#0012DE;padding:6px 12px;cursor:pointer;">INSTALL</button>
-  </div>
-
-  <!-- 설치 모달 -->
-  <div id="install-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:100;align-items:center;justify-content:center;">
-    <div style="background:#f8f8f6;border:1.1px solid #0012DE;padding:32px 28px;width:320px;position:relative;">
-      <div style="font-family:'Main',sans-serif;font-size:13px;letter-spacing:0.08em;color:#0012DE;margin-bottom:20px;">맥 위젯으로 설치하기</div>
-      <div style="font-family:'Main',sans-serif;font-size:10px;color:#999;line-height:1.8;margin-bottom:20px;">터미널을 열고 아래 명령어를 붙여넣으세요.<br>Node.js가 없어도 자동으로 설치됩니다.</div>
-      <div id="install-cmd" style="font-family:monospace;font-size:9px;background:#e8e8e6;color:#0012DE;padding:12px;word-break:break-all;line-height:1.6;cursor:pointer;" onclick="copyInstallCmd()">curl -fsSL https://raw.githubusercontent.com/x31531/hongmungwan/main/install.sh | bash</div>
-      <div id="copy-msg" style="font-family:'Main',sans-serif;font-size:9px;color:#999;margin-top:8px;opacity:0;transition:opacity 0.3s;">복사됨</div>
-      <button onclick="hideInstallModal()" style="position:absolute;top:12px;right:14px;font-family:'Main',sans-serif;font-size:12px;border:none;background:none;color:#999;cursor:pointer;">✕</button>
-    </div>
-  </div>
-
   <div class="landing-elevs">
   <div class="landing-elev">
     <div class="landing-track" id="lt-0">
@@ -365,11 +319,13 @@
 
   <div style="position:absolute; top:14px; right:16px; display:flex; align-items:center; gap:10px; z-index:10;">
     <span style="font-size:10px;letter-spacing:0.1em;color:#999;"><span id="user-count">1</span> 명 접속 중</span>
+    <button class="mute-btn" id="mute-btn" onclick="toggleMute()">♪</button>
     <button class="back-btn" onclick="goBack()" style="position:static;">↩</button>
   </div>
 
   <div class="hongik-logo">
-    <svg width="96" height="12" viewBox="0 0 256 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <a href="https://cn.hongik.ac.kr/stud/" target="_blank" style="display:block;">
+      <svg width="96" height="12" viewBox="0 0 256 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M97.0716 15.0263C104.04 14.5126 107.959 12.345 107.959 9.55089C107.959 8.19051 107.089 7.08979 105.417 6.24308H110.495V2.56835H97.0716V0H90.5381V2.574H77.1143V6.24872H82.1928C80.526 7.09543 79.6508 8.19615 79.6508 9.55654C79.6508 12.3507 83.5698 14.5183 90.5381 15.0319V16.5391H76.752V20.3944H82.2653C79.8682 21.4613 78.5637 23.0023 78.5637 24.9497C78.5637 29.0986 84.4394 32.0056 93.8049 32.0056C103.17 32.0056 109.046 29.1043 109.046 24.9497C109.046 23.0023 107.742 21.4613 105.344 20.3944H110.858V16.5391H97.0716V15.0319V15.0263ZM87.5278 10.804C86.5857 10.3637 86.1843 9.73717 86.1843 9.04286C86.1843 8.34856 86.5857 7.722 87.5278 7.28171C88.9047 6.62127 91.3018 6.25437 93.8049 6.25437C96.3079 6.25437 98.705 6.62127 100.082 7.28171C101.024 7.722 101.425 8.34856 101.425 9.04286C101.425 9.73717 101.024 10.3637 100.082 10.804C98.705 11.504 96.3469 11.8314 93.8049 11.8314C91.2628 11.8314 88.9047 11.4983 87.5278 10.804ZM100.121 21.5685C101.715 22.2685 102.518 23.2563 102.518 24.4361C102.518 25.6158 101.754 26.6036 100.121 27.3036C98.5991 27.964 96.2745 28.3309 93.8049 28.3309C91.3353 28.3309 89.0162 27.964 87.4888 27.3036C85.8554 26.6036 85.0917 25.6158 85.0917 24.4361C85.0917 23.2563 85.8888 22.2685 87.4888 21.5685C89.0107 20.9081 91.3353 20.5412 93.8049 20.5412C96.2745 20.5412 98.5935 20.9081 100.121 21.5685Z" fill="var(--ink)"/>
 <path d="M187.426 25.0241H210.789V31.2671H217.178V20.9824H187.426V25.0241Z" fill="var(--ink)"/>
 <path d="M217.178 1.4668H210.789V19.5074H217.178V14.8787H221.169V10.8371H217.178V1.4668Z" fill="var(--ink)"/>
@@ -383,14 +339,17 @@
 <path d="M49.6652 25.1407H13.5469V31.9991H63.2116V6.85742H49.6652V25.1407Z" fill="var(--ink)"/>
 <path d="M2.25774 22.8555V2.28612H47.407V6.85835H49.6647V0H0V25.1416H13.5464V22.8555H2.25774Z" fill="var(--ink)"/>
     </svg>
+    </a>
   </div>
 
   <div class="layout">
     <div class="panel" id="panel">
       <div class="grid" id="grid"></div>
     </div>
-    <div class="seg-wrap" id="seg-wrap">
-      <div class="seg-grid" id="seg-grid"></div>
+    <div style="border:1.1px solid var(--ink);padding:4px;background:var(--bg);position:relative;z-index:1;">
+      <div class="seg-wrap" id="seg-wrap">
+        <div class="seg-grid" id="seg-grid"></div>
+      </div>
     </div>
     <div class="elev-track" id="elev-track">
       <div class="elev-car" id="elev-car">
@@ -424,22 +383,16 @@
   </div>
 </div>
 </div><!-- #app -->
+<div id="distance-display" style="position:fixed;bottom:24px;right:24px;font-family:'Main',sans-serif;font-size:11px;letter-spacing:0.08em;color:#999;text-align:right;pointer-events:none;">
+  <span id="distance-label" style="margin-right:4px;">우리가 함께 오른 높이 :</span><span id="distance-text">0.0 m</span>
+</div>
+<style>
+  @media (max-width: 600px) {
+    #distance-label { display: none; }
+  }
+</style>
 
 <script>
-function showInstallModal() {
-  const m = document.getElementById('install-modal');
-  m.style.display = 'flex';
-}
-function hideInstallModal() {
-  document.getElementById('install-modal').style.display = 'none';
-}
-function copyInstallCmd() {
-  navigator.clipboard.writeText('curl -fsSL https://raw.githubusercontent.com/x31531/hongmungwan/main/install.sh | bash');
-  const msg = document.getElementById('copy-msg');
-  msg.style.opacity = '1';
-  setTimeout(() => msg.style.opacity = '0', 1500);
-}
-
 // ── 랜딩 페이지 ──────────────────────────────────────────────
 function initLanding() {
   [0,1,2].forEach(i => {
@@ -500,8 +453,10 @@ function startElevBackground(idx) {
     st.elapsed = 0;
     st.floorIdx += st.direction;
     if (st.floorIdx < 0 || st.floorIdx >= floorOrder.length) {
-      clearInterval(st.travelTimer); st.travelTimer = null; st.direction = 0; return;
+      st.travelTimer = null; st.direction = 0; return;
     }
+    // 층 이동마다 4m 누적
+    addDistance(1);
     const curFloor = floorOrder[st.floorIdx];
     if (selectedElev === idx) {
       setFloorDisplay(curFloor);
@@ -509,7 +464,7 @@ function startElevBackground(idx) {
     }
     const stopHere = st.queue.findIndex(q => q.idx === st.floorIdx);
     if (stopHere !== -1) {
-      clearInterval(st.travelTimer); st.travelTimer = null;
+      st.travelTimer = null;
       if (selectedElev === idx) {
         updateElevCarSmooth(st.floorIdx, st.floorIdx);
         stopMotorSound();
@@ -562,7 +517,7 @@ function bgStartTravel(idx) {
   }
   st.elapsed = 0;
   st.lastTick = Date.now();
-  st.travelTimer = true;
+  st.travelTimer = 1;
 }
 
 function updateColorForFloor(curFloor, floorIdx) {
@@ -624,21 +579,7 @@ window.addEventListener('load', () => {
     startElevBackground(i);
     bgOpenDoor(i);
   });
-  const allPx = Array.from(document.querySelectorAll('.lpx, .wpx'));
-  const shuffled = allPx.sort(() => Math.random() - 0.5);
-  const totalDur = 1200;
-  const interval = totalDur / shuffled.length;
-  shuffled.forEach((px, i) => {
-    setTimeout(() => {
-      px.style.transition = 'opacity 0.15s';
-      px.style.opacity = '1';
-    }, i * interval);
-  });
-  const loading = document.getElementById('loading');
-  setTimeout(() => {
-    loading.classList.add('fade-out');
-    setTimeout(() => { loading.style.display = 'none'; }, 700);
-  }, totalDur + 1500);
+
 });
 
 function goBack() {
@@ -668,7 +609,7 @@ function goBack() {
 
 // ── 세그먼트 그리드 ──────────────────────────────────────────
 const segGrid = document.getElementById('seg-grid');
-let cells = [], COLS = 9;
+let cells = [], COLS = 11;
 
 function buildGrid(cols) {
   COLS = cols;
@@ -685,7 +626,7 @@ function buildGrid(cols) {
     }
   }
 }
-buildGrid(9);
+buildGrid(11);
 
 function setGrid(pattern) {
   for (let r = 0; r < 7; r++)
@@ -694,38 +635,38 @@ function setGrid(pattern) {
 }
 
 const DIGITS = {
-  '0':[[1,1,1],[1,0,1],[1,0,1],[1,0,1],[1,1,1]],
-  '1':[[0,1,0],[1,1,0],[0,1,0],[0,1,0],[1,1,1]],
-  '2':[[1,1,1],[0,0,1],[1,1,1],[1,0,0],[1,1,1]],
-  '3':[[1,1,1],[0,0,1],[0,1,1],[0,0,1],[1,1,1]],
-  '4':[[1,0,1],[1,0,1],[1,1,1],[0,0,1],[0,0,1]],
-  '5':[[1,1,1],[1,0,0],[1,1,1],[0,0,1],[1,1,1]],
-  '6':[[1,1,1],[1,0,0],[1,1,1],[1,0,1],[1,1,1]],
-  '7':[[1,1,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1]],
-  '8':[[1,1,1],[1,0,1],[1,1,1],[1,0,1],[1,1,1]],
-  '9':[[1,1,1],[1,0,1],[1,1,1],[0,0,1],[1,1,1]],
-  'L':[[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,1,1]],
-  'B':[[1,1,0],[1,0,1],[1,1,0],[1,0,1],[1,1,0]],
-  '-':[[0,0,0],[0,0,0],[1,1,1],[0,0,0],[0,0,0]],
-  ':':[[0,0,0],[0,1,0],[0,0,0],[0,1,0],[0,0,0]],
+  'B2':[[1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0], [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1], [1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0], [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0], [1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1]],
+  'B3':[[1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0], [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1], [1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1], [1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0]],
+  'B4':[[1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0], [1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0], [1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0], [1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0], [1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0], [1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0]],
+  'B5':[[1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1], [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0], [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1], [1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0]],
+  'B6':[[1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0], [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0], [1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0], [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1], [1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0]],
+  'L': [[0,0,0,1,0,0,0,0,0],[0,0,0,1,0,0,0,0,0],[0,0,0,1,0,0,0,0,0],[0,0,0,1,0,0,0,0,0],[0,0,0,1,0,0,0,0,0],[0,0,0,1,0,0,0,0,0],[0,0,0,1,1,1,0,0,0]],
+  '1': [[0,0,0,0,1,0,0,0,0],[0,0,0,1,1,0,0,0,0],[0,0,0,0,1,0,0,0,0],[0,0,0,0,1,0,0,0,0],[0,0,0,0,1,0,0,0,0],[0,0,0,0,1,0,0,0,0],[0,0,0,1,1,1,0,0,0]],
+  '2': [[0,0,0,1,1,1,0,0,0],[0,0,1,0,0,0,1,0,0],[0,0,0,0,0,0,1,0,0],[0,0,0,0,0,1,0,0,0],[0,0,0,0,1,0,0,0,0],[0,0,0,1,0,0,0,0,0],[0,0,1,1,1,1,1,0,0]],
+  '3': [[0,0,0,1,1,1,0,0,0],[0,0,1,0,0,0,1,0,0],[0,0,0,0,0,0,1,0,0],[0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,0,1,1,1,0,0,0]],
+  '4': [[0,0,0,0,0,1,0,0,0],[0,0,0,0,1,1,0,0,0],[0,0,0,1,0,1,0,0,0],[0,0,1,0,0,1,0,0,0],[0,0,1,1,1,1,1,0,0],[0,0,0,0,0,1,0,0,0],[0,0,0,0,0,1,0,0,0]],
+  '5': [[0,0,1,1,1,1,1,0,0],[0,0,1,0,0,0,0,0,0],[0,0,1,1,1,1,0,0,0],[0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,0,1,1,1,0,0,0]],
+  '6': [[0,0,0,1,1,1,0,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,0,0,0,0,0,0],[0,0,1,1,1,1,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,0,1,1,1,0,0,0]],
+  '7': [[0,0,1,1,1,1,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,0,0,0,0,1,0,0],[0,0,0,0,0,1,0,0,0],[0,0,0,0,1,0,0,0,0],[0,0,0,0,1,0,0,0,0],[0,0,0,0,1,0,0,0,0]],
+  '8': [[0,0,0,1,1,1,0,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,0,1,1,1,0,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,0,1,1,1,0,0,0]],
+  '9': [[0,0,0,1,1,1,0,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,0,1,1,1,1,0,0],[0,0,0,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,0,1,1,1,0,0,0]],
+  '0': [[0,0,0,1,1,1,0,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,0,1,1,1,0,0,0]],
+  '-': [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,1,1,1,1,1,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]],
+  'B': [[0,0,1,1,1,1,0,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,1,1,1,0,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,0,0,0,1,0,0],[0,0,1,1,1,1,0,0,0]],
+  ':': [[0,0,0,0,0,0,0,0,0],[0,0,0,0,1,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,1,0,0,0,0],[0,0,0,0,0,0,0,0,0]],
 };
 
 function renderString(str) {
   const pattern = Array.from({length:7}, () => Array(COLS).fill(0));
-  const chars = str.split('');
-  const charW = 3, gap = 1;
-  const totalW = chars.length * charW + (chars.length - 1) * gap;
-  let startC = Math.floor((COLS - totalW) / 2);
-  chars.forEach(ch => {
-    const d = DIGITS[ch];
-    if (!d) { startC += charW + gap; return; }
-    for (let r = 0; r < 5; r++)
-      for (let c = 0; c < 3; c++) {
-        const gr = 1 + r, gc = startC + c;
-        if (gr < 7 && gc >= 0 && gc < COLS) pattern[gr][gc] = d[r][c];
-      }
-    startC += charW + gap;
-  });
+  const d = DIGITS[str];
+  if (!d) { setGrid(pattern); return; }
+  const patW = d[0].length;
+  const startC = patW >= COLS ? 0 : Math.floor((COLS - patW) / 2);
+  for (let r = 0; r < 7; r++)
+    for (let c = 0; c < patW; c++) {
+      const gc = startC + c;
+      if (gc >= 0 && gc < COLS) pattern[r][gc] = d[r][c] || 0;
+    }
   setGrid(pattern);
 }
 
@@ -738,8 +679,13 @@ function updateBgImage(f) {
 }
 
 function setFloorDisplay(f) {
-  lastFloor = f === 'LOBBY' ? 'L' : f.replace('F','').replace('B','-');
-  renderString(lastFloor);
+  const floorKeyMap = {
+    'B6': 'B6', 'B5': 'B5', 'B4': 'B4', 'B3': 'B3', 'B2': 'B2',
+    'LOBBY': 'L',
+  };
+  const key = floorKeyMap[f] || f.replace('F', '');
+  lastFloor = key;
+  renderString(key);
   updateBgImage(f);
 }
 
@@ -841,6 +787,37 @@ function drawWires() {
 }
 
 (function wireLoop() { drawWires(); requestAnimationFrame(wireLoop); })();
+
+
+// ── 음소거 ──────────────────────────────────────────────────
+let isMuted = false;
+
+function toggleMute() {
+  isMuted = !isMuted;
+  const btn = document.getElementById('mute-btn');
+  btn.classList.toggle('muted', isMuted);
+  btn.innerHTML = isMuted
+    ? '♪<svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 40 40"><line x1="10" y1="10" x2="30" y2="30" stroke="currentColor" stroke-width="2"/></svg>'
+    : '♪';
+  if (isMuted) {
+    // 모든 트랙 즉시 음소거
+    Object.values(trackAudio).forEach(audio => {
+      if (!audio) return;
+      audio.volume = 0;
+      if (audio._pair) audio._pair.volume = 0;
+    });
+    stopMotorSound();
+  } else {
+    // 현재 큐에 있는 층 음악 다시 재생
+    const st = elevStates[selectedElev];
+    st.queue.forEach(q => {
+      if (q.floor) fadeTrack(q.floor, 0.7);
+    });
+  }
+}
+
+// fadeTrack override for mute
+const _origFadeTrack = fadeTrack;
 
 // ── 층당 이동시간 수치 입력 ──────────────────────────────────
 let customTravelMs = 1000;
@@ -981,6 +958,7 @@ function initAllTracks() {
 }
 
 function fadeTrack(floor, targetVol, duration=300) {
+  if (isMuted && targetVol > 0) return;
   const audio = trackAudio[floor];
   if (!audio) return;
   const steps = 20, interval = duration / steps;
@@ -1009,12 +987,38 @@ function animateDoor(open) {
 // ── UI 버튼 ─────────────────────────────────────────────────
 const floorBtns={};
 floors.forEach(fd=>{
+const BTN_SVGS = {
+  '9F': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(0.45,0.34)"><path class="cls-3" d="M31.05,39.76l-1.5-1.11,3.23-4.4c-.17.02-.32.04-.45.05s-.22.02-.3.02c-1.09,0-2.04-.42-2.83-1.25-.79-.83-1.19-1.83-1.19-2.99,0-1.24.44-2.3,1.32-3.18.89-.89,1.95-1.33,3.18-1.33s2.3.44,3.21,1.31c.91.87,1.36,1.9,1.36,3.08,0,1.05-.44,2.18-1.33,3.4l-4.72,6.4ZM30,29.92c0,.73.25,1.34.74,1.84.5.5,1.11.75,1.81.75s1.31-.25,1.8-.74c.5-.5.75-1.1.75-1.81s-.25-1.31-.75-1.81c-.5-.5-1.1-.74-1.81-.74s-1.3.25-1.79.74c-.5.5-.75,1.09-.75,1.78Z"/></g>`,
+  '8F': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-123.36,0.45)"><path class="cls-3" d="M153.94,32.28c-.99-.7-1.49-1.65-1.49-2.86,0-1.1.38-2.01,1.13-2.75.76-.73,1.7-1.1,2.83-1.1s2.05.37,2.8,1.1c.75.73,1.12,1.65,1.12,2.76s-.49,2.11-1.48,2.84c.54.29.97.72,1.28,1.28.31.56.47,1.19.47,1.89,0,1.2-.39,2.18-1.17,2.94-.78.76-1.78,1.15-3,1.15s-2.28-.38-3.09-1.15c-.82-.77-1.22-1.74-1.22-2.9,0-1.52.61-2.58,1.83-3.18ZM154.12,35.4c0,.62.21,1.16.65,1.61.44.44.97.66,1.59.66s1.15-.22,1.58-.66c.44-.44.66-.97.66-1.59s-.22-1.15-.66-1.59-.97-.66-1.58-.66-1.14.22-1.58.66c-.44.44-.66.96-.66,1.57ZM154.37,29.41c0,.58.19,1.06.59,1.45s.87.59,1.43.59,1.03-.2,1.43-.59c.4-.4.59-.87.59-1.43s-.2-1.03-.59-1.43c-.4-.4-.87-.59-1.43-.59s-1.03.2-1.43.59c-.4.4-.59.86-.59,1.4Z"/></g>`,
+  '7F': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-247.36,0.45)"><path class="cls-3" d="M282.02,27.47h-6.67v-1.91h10.07l-8.52,13.97-1.62-1.02,6.74-11.04Z"/></g>`,
+  '6F': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-371.36,0.45)"><path class="cls-3" d="M405.86,25.45l1.5,1.12-3.23,4.39c.17-.02.32-.04.45-.05s.22-.02.29-.02c1.1,0,2.04.42,2.84,1.26.79.83,1.19,1.83,1.19,2.99,0,1.24-.44,2.3-1.33,3.18s-1.94,1.32-3.18,1.32-2.3-.43-3.22-1.3c-.9-.87-1.36-1.9-1.36-3.09,0-1.07.44-2.2,1.32-3.39l4.72-6.41ZM406.91,35.28c0-.72-.25-1.32-.74-1.82-.5-.5-1.11-.75-1.81-.75s-1.32.25-1.81.74c-.5.5-.74,1.1-.74,1.8s.25,1.31.74,1.8c.49.5,1.1.74,1.82.74s1.3-.25,1.79-.74.75-1.09.75-1.78Z"/></g>`,
+  '5F': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-495.36,0.45)"><path class="cls-3" d="M532.8,27.59h-4.16l-.66,2.24c.1-.01.19-.02.28-.03.09,0,.17,0,.25,0,1.31,0,2.39.44,3.23,1.33.84.88,1.27,2.01,1.27,3.39s-.48,2.6-1.43,3.52c-.96.92-2.16,1.38-3.61,1.38-1.79,0-3.2-.84-4.23-2.52l1.54-1.3c.42.72.85,1.23,1.29,1.53.43.29.96.44,1.58.44.82,0,1.5-.29,2.06-.86.55-.59.83-1.3.83-2.14s-.27-1.57-.82-2.12c-.55-.57-1.23-.85-2.06-.85-.92,0-1.71.4-2.37,1.2h-.67l2.13-7.1h5.58v1.91Z"/></g>`,
+  '4F': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-619.36,0.45)"><path class="cls-3" d="M655.98,36.04h1.43v1.85h-1.43v1.92h-2.04v-1.92h-6.63l8.67-12.6v10.74ZM653.94,36.04v-4.52l-3.11,4.52h3.11Z"/></g>`,
+  '3F': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-743.36,0.45)"><path class="cls-3" d="M775.93,33.04v-1.74c.86,0,1.44-.1,1.74-.29.53-.34.8-.88.8-1.63,0-.58-.19-1.05-.58-1.41-.38-.37-.87-.55-1.48-.55-.57,0-1,.14-1.31.41-.3.28-.52.75-.66,1.42h-2.03c.21-1.27.64-2.2,1.29-2.79.65-.59,1.57-.89,2.74-.89s2.15.35,2.9,1.05c.75.69,1.12,1.59,1.12,2.69,0,1.24-.49,2.2-1.47,2.89,1.12.66,1.68,1.73,1.68,3.21,0,1.21-.41,2.2-1.22,2.97-.82.77-1.86,1.15-3.14,1.15-1.63,0-2.83-.6-3.62-1.79-.33-.5-.53-1.2-.62-2.08h1.97c.1.65.36,1.15.76,1.5.41.35.93.52,1.59.52s1.2-.22,1.64-.66c.43-.45.65-1.02.65-1.71,0-.91-.32-1.56-.97-1.94-.38-.22-.97-.33-1.76-.33Z"/></g>`,
+  '2F': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-867.36,0.45)"><path class="cls-3" d="M899.86,37.5h5.03v1.92h-9.07l4.69-5.68c.46-.57.85-1.06,1.16-1.47.31-.41.55-.76.71-1.04.33-.55.5-1.04.5-1.48,0-.63-.22-1.16-.66-1.58-.44-.43-.99-.64-1.64-.64-1.36,0-2.15.81-2.34,2.42h-2.03c.33-2.85,1.76-4.27,4.31-4.27,1.23,0,2.26.39,3.1,1.17.84.78,1.26,1.75,1.26,2.9,0,.73-.2,1.45-.59,2.16-.2.37-.49.8-.87,1.31-.38.5-.86,1.1-1.45,1.79l-2.1,2.48Z"/></g>`,
+  '1F': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-991.36,0.45)"><path class="cls-3" d="M1024.51,27.7h-2.34l1.12-1.91h3.25v13.51h-2.04v-11.6Z"/></g>`,
+  'LOBBY': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-1115.36,0.45)"><path class="cls-3" d="M1147.39,25.8v11.59h3.97v1.92h-6.01v-13.51h2.04Z"/></g>`,
+  'B2': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-1239.36,0.45)"><path class="cls-3" d="M1263.11,39.42v-13.51h2.03c.9,0,1.62.07,2.16.21.54.14,1,.38,1.37.71.38.34.68.77.9,1.29.23.52.34,1.04.34,1.57,0,.97-.37,1.79-1.11,2.46.72.24,1.28.67,1.7,1.29.42.61.63,1.31.63,2.12,0,1.06-.37,1.95-1.12,2.68-.45.45-.95.76-1.51.94-.61.17-1.38.25-2.3.25h-3.09ZM1265.15,31.71h.64c.76,0,1.31-.17,1.67-.5.35-.33.53-.83.53-1.48s-.18-1.12-.54-1.45c-.36-.33-.89-.49-1.57-.49h-.72v3.93ZM1265.15,37.5h1.26c.92,0,1.6-.18,2.03-.54.45-.39.68-.89.68-1.49s-.22-1.07-.66-1.47c-.43-.39-1.19-.59-2.28-.59h-1.03v4.09Z"/><path class="cls-3" d="M1276.57,37.5h5.03v1.92h-9.07l4.69-5.68c.46-.57.85-1.06,1.16-1.47.31-.41.55-.76.71-1.04.33-.55.5-1.04.5-1.48,0-.63-.22-1.16-.66-1.58-.44-.43-.99-.64-1.64-.64-1.36,0-2.15.81-2.34,2.42h-2.03c.33-2.85,1.76-4.27,4.31-4.27,1.23,0,2.26.39,3.1,1.17.84.78,1.26,1.75,1.26,2.9,0,.73-.2,1.45-.59,2.16-.2.37-.49.8-.87,1.31-.38.5-.86,1.1-1.45,1.79l-2.1,2.48Z"/></g>`,
+  'B3': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-1363.36,0.45)"><path class="cls-3" d="M1387.18,39.31v-13.51h2.03c.9,0,1.62.07,2.16.21.54.14,1,.38,1.37.71.38.34.68.77.9,1.29.23.52.34,1.04.34,1.57,0,.97-.37,1.79-1.11,2.46.72.24,1.28.67,1.7,1.29.42.61.63,1.31.63,2.12,0,1.06-.37,1.95-1.12,2.68-.45.45-.95.76-1.51.94-.61.17-1.38.25-2.3.25h-3.09ZM1389.22,31.61h.64c.76,0,1.31-.17,1.67-.5.35-.33.53-.83.53-1.48s-.18-1.12-.54-1.45c-.36-.33-.89-.49-1.57-.49h-.72v3.93ZM1389.22,37.4h1.26c.92,0,1.6-.18,2.03-.54.45-.39.68-.89.68-1.49s-.22-1.07-.66-1.47c-.43-.39-1.19-.59-2.28-.59h-1.03v4.09Z"/><path class="cls-3" d="M1400.8,33.04v-1.74c.86,0,1.44-.1,1.74-.29.53-.34.8-.88.8-1.63,0-.58-.19-1.05-.58-1.41-.38-.37-.87-.55-1.48-.55-.57,0-1,.14-1.31.41-.3.28-.52.75-.66,1.42h-2.03c.21-1.27.64-2.2,1.29-2.79.65-.59,1.57-.89,2.74-.89s2.15.35,2.9,1.05c.75.69,1.12,1.59,1.12,2.69,0,1.24-.49,2.2-1.47,2.89,1.12.66,1.68,1.73,1.68,3.21,0,1.21-.41,2.2-1.22,2.97-.82.77-1.86,1.15-3.14,1.15-1.63,0-2.83-.6-3.62-1.79-.33-.5-.53-1.2-.62-2.08h1.97c.1.65.36,1.15.76,1.5.41.35.93.52,1.59.52s1.2-.22,1.64-.66c.43-.45.65-1.02.65-1.71,0-.91-.32-1.56-.97-1.94-.38-.22-.97-.33-1.76-.33Z"/></g>`,
+  'B4': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-1487.36,0.45)"><path class="cls-3" d="M1510.73,39.81v-13.51h2.03c.9,0,1.62.07,2.16.21.54.14,1,.38,1.37.71.38.34.68.77.9,1.29.23.52.34,1.04.34,1.57,0,.97-.37,1.79-1.11,2.46.72.24,1.28.67,1.7,1.29.42.61.63,1.31.63,2.12,0,1.06-.37,1.95-1.12,2.68-.45.45-.95.76-1.51.94-.61.17-1.38.25-2.3.25h-3.09ZM1512.77,32.1h.64c.76,0,1.31-.17,1.67-.5.35-.33.53-.83.53-1.48s-.18-1.12-.54-1.45c-.36-.33-.89-.49-1.57-.49h-.72v3.93ZM1512.77,37.89h1.26c.92,0,1.6-.18,2.03-.54.45-.39.68-.89.68-1.49s-.22-1.07-.66-1.47c-.42-.39-1.19-.59-2.28-.59h-1.03v4.09Z"/><path class="cls-3" d="M1528.55,36.04h1.43v1.85h-1.43v1.92h-2.04v-1.92h-6.63l8.67-12.6v10.74ZM1526.51,36.04v-4.52l-3.11,4.52h3.11Z"/></g>`,
+  'B5': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-1611.36,0.45)"><path class="cls-3" d="M1635.06,39.2v-13.51h2.03c.9,0,1.62.07,2.16.21.54.14,1,.38,1.37.71.38.34.68.77.9,1.29.23.52.34,1.04.34,1.57,0,.97-.37,1.79-1.11,2.46.72.24,1.28.67,1.7,1.29.42.61.63,1.31.63,2.12,0,1.06-.37,1.95-1.12,2.68-.45.45-.95.76-1.51.94-.61.17-1.38.25-2.3.25h-3.09ZM1637.1,31.49h.64c.76,0,1.31-.17,1.67-.5.35-.33.53-.83.53-1.48s-.18-1.12-.54-1.45c-.36-.33-.89-.49-1.57-.49h-.72v3.93ZM1637.1,37.28h1.26c.92,0,1.6-.18,2.03-.54.45-.39.68-.89.68-1.49s-.22-1.07-.66-1.47c-.42-.39-1.19-.59-2.28-.59h-1.03v4.09Z"/><path class="cls-3" d="M1653.46,27.59h-4.16l-.66,2.24c.1-.01.19-.02.28-.03.09,0,.17,0,.25,0,1.31,0,2.39.44,3.23,1.33.85.88,1.27,2.01,1.27,3.39s-.48,2.6-1.43,3.52c-.96.92-2.16,1.38-3.61,1.38-1.79,0-3.2-.84-4.23-2.52l1.54-1.3c.43.72.85,1.23,1.29,1.53.43.29.96.44,1.58.44.82,0,1.5-.29,2.06-.86.55-.59.83-1.3.83-2.14s-.27-1.57-.82-2.12c-.55-.57-1.23-.85-2.06-.85-.91,0-1.71.4-2.37,1.2h-.67l2.13-7.1h5.58v1.91Z"/></g>`,
+  'B6': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-1735.36,0.45)"><path class="cls-3" d="M1758.83,39.43v-13.51h2.03c.9,0,1.62.07,2.16.21.54.14,1,.38,1.37.71.38.34.68.77.9,1.29.23.52.34,1.04.34,1.57,0,.97-.37,1.79-1.11,2.46.72.24,1.28.67,1.7,1.29.42.61.63,1.31.63,2.12,0,1.06-.37,1.95-1.12,2.68-.45.45-.95.76-1.51.94-.61.17-1.38.25-2.3.25h-3.09ZM1760.87,31.72h.64c.76,0,1.31-.17,1.67-.5.35-.33.53-.83.53-1.48s-.18-1.12-.54-1.45c-.36-.33-.89-.49-1.57-.49h-.72v3.93ZM1760.87,37.52h1.26c.92,0,1.6-.18,2.03-.54.45-.39.68-.89.68-1.49s-.22-1.07-.66-1.47c-.43-.39-1.19-.59-2.28-.59h-1.03v4.09Z"/><path class="cls-3" d="M1774.85,25.45l1.5,1.12-3.23,4.39c.17-.02.32-.04.45-.05s.22-.02.29-.02c1.1,0,2.04.42,2.84,1.26.79.83,1.19,1.83,1.19,2.99,0,1.24-.44,2.3-1.33,3.18s-1.94,1.32-3.18,1.32-2.3-.43-3.22-1.3c-.9-.87-1.36-1.9-1.36-3.09,0-1.07.44-2.2,1.32-3.39l4.72-6.41ZM1775.9,35.28c0-.72-.25-1.32-.74-1.82-.5-.5-1.11-.75-1.81-.75s-1.32.25-1.81.74c-.5.5-.74,1.1-.74,1.8s.25,1.31.74,1.8c.49.5,1.1.74,1.82.74s1.3-.25,1.79-.74.75-1.09.75-1.78Z"/></g>`,
+  'door-open': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-1859.36,0.45)"><polygon class="cls-3" points="1882.31 32.55 1891.27 37.73 1891.27 27.37 1882.31 32.55"/><polygon class="cls-3" points="1902.41 32.55 1893.44 27.37 1893.44 37.73 1902.41 32.55"/></g>`,
+  'door-close': `<circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-1983.36,0.45)"><polygon class="cls-3" points="2015.73 32.55 2006.76 27.37 2006.76 37.73 2015.73 32.55"/><polygon class="cls-3" points="2016.99 32.55 2025.95 37.73 2025.95 27.37 2016.99 32.55"/></g>`,
+};
+
   const btn=document.createElement('button');
   btn.className='floor-btn';
-  const label=document.createElement('span');label.className='btn-label';
-  label.textContent=fd.floor==='LOBBY'?'L':fd.floor.replace('F','');
+  const btnSvg = BTN_SVGS[fd.floor];
+  if (btnSvg) {
+    btn.innerHTML = `<svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><defs><style>.cls-2{fill:#f8f8f6;stroke:#0012de;stroke-width:1.1px;}.cls-3{fill:#0012de;}</style></defs>${btnSvg}</svg>`;
+  } else {
+    const label=document.createElement('span');label.className='btn-label';
+    label.textContent=fd.floor==='LOBBY'?'L':fd.floor.replace('F','');
+    btn.appendChild(label);
+  }
   const count=document.createElement('span');count.className='btn-count';
-  btn.appendChild(label);btn.appendChild(count);
+  btn.appendChild(count);
   btn.addEventListener('click',()=>{
     const st = elevStates[selectedElev];
     const ti=floorOrder.indexOf(fd.floor);
@@ -1036,6 +1040,8 @@ floors.forEach(fd=>{
   document.getElementById('grid').appendChild(btn);
 });
 
+document.getElementById('door-open').innerHTML = `<svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><defs><style>.cls-2{fill:#f8f8f6;stroke:#0012de;stroke-width:1.1px;}.cls-3{fill:#0012de;}</style></defs><circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-1859.36,0.45)"><polygon class="cls-3" points="1882.31 32.55 1891.27 37.73 1891.27 27.37 1882.31 32.55"/><polygon class="cls-3" points="1902.41 32.55 1893.44 27.37 1893.44 37.73 1902.41 32.55"/></g></svg>`;
+document.getElementById('door-close').innerHTML = `<svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><defs><style>.cls-2{fill:#f8f8f6;stroke:#0012de;stroke-width:1.1px;}.cls-3{fill:#0012de;}</style></defs><circle class="cls-2" cx="33" cy="33" r="31"/><g transform="translate(-1983.36,0.45)"><polygon class="cls-3" points="2015.73 32.55 2006.76 27.37 2006.76 37.73 2015.73 32.55"/><polygon class="cls-3" points="2016.99 32.55 2025.95 37.73 2025.95 27.37 2016.99 32.55"/></g></svg>`;
 document.getElementById('door-open').addEventListener('click',()=>{
   document.getElementById('door-open').classList.add('active');
   setTimeout(()=>document.getElementById('door-open').classList.remove('active'),200);
@@ -1049,6 +1055,25 @@ document.getElementById('door-close').addEventListener('click',()=>{
 
 window.addEventListener('load',()=>updateElevCar(5));
 
+// ── 누적 이동 거리 (Firebase 연동) ──────────────────────────
+function updateDistanceDisplay(meters) {
+  const el = document.getElementById('distance-text');
+  if (!el) return;
+  if (meters < 1000) {
+    el.textContent = meters.toFixed(1) + ' m';
+  } else {
+    el.textContent = (meters / 1000).toFixed(2) + ' km';
+  }
+}
+
+function addDistance(floors) {
+  const meters = floors * 4;
+  if (typeof db === 'undefined') return;
+  db.ref('totalDistance').transaction(current => (current || 0) + meters);
+}
+
+
+
 // ── Firebase 실시간 연동 ─────────────────────────────────────
 const firebaseConfig = {
   apiKey: "AIzaSyAsY3EB9ZeOC4yfLS_Q4GpdGmD5MuzY6Nw",
@@ -1061,6 +1086,10 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 var db = firebase.database();
+
+db.ref('totalDistance').on('value', snap => {
+  updateDistanceDisplay(snap.val() || 0);
+});
 
 const userRef = db.ref('activeUsers').push(true);
 userRef.onDisconnect().remove();
